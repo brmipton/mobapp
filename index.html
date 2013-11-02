@@ -1,0 +1,333 @@
+<html>
+<head>
+<link href="css/topcoat-mobile-min.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+
+<script id="home-tpl" type="text/x-handlebars-template">
+
+  <div class="header">
+	  <h1>Rosslyn App</h1>
+  </div>
+  <div class="scroll">
+	  <ul class="homelinks">
+		  <li>
+			  <a href="#search">Product Search</a>
+		  </li>
+  
+		  <li>
+			  <a class="add-contact-btn" href="#call">Call Rosslyn</a>
+		  </li>
+  
+		  <li>
+			  <a href="#find">Find Rosslyn</a>
+		  </li>
+  
+		  <li>
+			  <a href="#settings" class="setting">Settings</a>
+		  </li>
+	  </ul>
+  </div>  
+
+</script> 
+
+<script id="search-tpl" type="text/x-handlebars-template">
+
+<div class='header'>
+    <a class="button header-button header-button-left" href='#'>Back</a>
+    <h1>Search</h1>
+</div>
+
+<div class="scroll">
+    <form id="search" name="search">
+		<label>Category</label>
+            <select class="category-select sel" name="category">
+            </select> 
+		<label>Sub Category</label>
+			<select class="sub-select sel" name="subcategory">
+            </select> 
+		<label>Price</label>
+			<select class="price-select sel" name="price">
+            <option value="1000">
+                No limit
+            </option>
+
+            <option value="1">
+                Under &pound;1
+            </option>
+			
+			<option value="2">
+                Under &pound;2
+            </option>
+
+            <option value="5">
+                Under &pound;5
+            </option>
+
+       
+
+            <option value="10">
+                Under &pound;10
+            </option>
+
+            <option value="20">
+                Under &pound;20
+            </option>
+			
+        </select> <br /><br /><input class="topcoat-button--large" name="search" type="submit" value="Search" />
+    </form>
+</div>
+</script> 
+<script id="browse-tpl" type="text/x-handlebars-template">
+ <div class='header'>
+    <a class="button header-button header-button-left" href='#search'>Back</a>
+
+    <h1>Browse</h1>
+	</div>
+	
+	<div class="scroll">
+		<div class="product-list"></div>
+	</div>
+ </script> 
+ 
+<script id="category-option-tpl" type="text/x-handlebars-template">
+<option value="0">- Select - </option>
+  {{#.}}
+	<option value="{{this.id}}">{{this.name}}</option>
+  {{/.}}
+</script> 
+
+<script id="sub-option-tpl" type="text/x-handlebars-template">
+ <option value="0">- All - </option>
+  {{# categories}}
+  <option value="{{this.id}}">{{this.name}}</option>
+  {{/ categories}}
+</script> 
+
+<script id="product-li-tpl" type="text/x-handlebars-template">
+	{{# products}}
+	<div class='details'><a href="#product/{{this.id}}"><img src="{{this.image}}" style="float:left;margin:10px;" height="100" width="100" class="loadingimage" /></a><a href="#product/{{this.id}}"><h2>{{{this.product}}</h2></a><p>From &pound;{{this.fromprice}}</p><br clear="all" /></div>
+	{{/ products}}
+</script> 
+<script id="product-tpl" type="text/x-handlebars-template">
+<div class='header'>
+    <a class="button header-button header-button-left" href='#browse' id="ltr">Back</a>
+    <h1>Product</h1>
+</div>
+
+<div class='details'>
+    <h1>{{name}}</h1>
+	<img class='image' height="175" src='{{image}}' style='float:left;margin:0px 10px 40px 0px'
+    width="175" />
+
+    <p>{{description}}</p>Guide Price<br />
+
+    <h2>&pound;{{from}}</h2><br clear="all" />
+
+    <form id="order" name="order">
+        <label>Branding</label> <select name="branding">
+            <option value="0">
+                - Select -
+            </option>
+
+            <option value="1">
+                My Logo
+            </option>
+
+            <option value="2">
+                My Logo + Additional Logo
+            </option>
+
+            <option value="3">
+                My Logo + Additional Logo + Another logo
+            </option>
+
+            <option value="4">
+                No Logo
+            </option>
+        </select> <label>Quote Quantity</label>
+
+        <table width="100%">
+            <tr>
+                <td><select name="qty1">
+                    <option value="0">
+                        - Select -
+                    </option>
+
+                    <option value="100">
+                        100
+                    </option>
+
+                    <option value="200">
+                        200
+                    </option>
+
+                    <option value="500">
+                        500
+                    </option>
+
+                    <option value="1000">
+                        1000
+                    </option>
+                </select></td>
+
+                <td><select name="qty2">
+                    <option value="0">
+                        - Select -
+                    </option>
+
+                    <option value="100">
+                        100
+                    </option>
+
+                    <option value="200">
+                        200
+                    </option>
+
+                    <option value="500">
+                        500
+                    </option>
+
+                    <option value="1000">
+                        1000
+                    </option>
+                </select></td>
+
+                <td><select name="qty3">
+                    <option value="0">
+                        - Select -
+                    </option>
+
+                    <option value="100">
+                        100
+                    </option>
+
+                    <option value="200">
+                        200
+                    </option>
+
+                    <option value="500">
+                        500
+                    </option>
+
+                    <option value="1000">
+                        1000
+                    </option>
+                </select></td>
+            </tr>
+        </table><input name="product" type="hidden" value="{{product}}" /><br />
+        <br />
+        <input class="submit" name="getquote" type="submit" value="Quote Me" />
+    </form>
+</div>
+</script> 
+<script id="order-tpl" type="text/x-handlebars-template">
+<div class='header'><a href='#' class="button header-button header-button-left">Back</a><h1>Order </h1></div>
+ <div class="scroll">
+	<h1>Thank you</h1>
+ </div>
+</script> 
+<script id="findrosslyn-tpl" type="text/x-handlebars-template">
+<div class='header'>
+    <a class="button header-button header-button-left" href='#'>Back</a>
+
+    <h1>Find Rosslyn</h1>
+</div>
+
+<div class="map_canvas" id="map_canvas"></div><strong>Rosslyn Marketing Services Ltd</strong><br />
+The Old Barrel Store<br />
+Draymans Lane<br />
+Marlow<br />
+SL7 2FF<br />
+<br />
+Tel:+44 (0) 162 887 8456<br />
+<a href="mailto:sales@rosslynmarketing.com">sales@rosslynmarketing.com</a>			
+</script> 
+<script id="settings-tpl" type="text/x-handlebars-template">
+    <div class='header'>
+    <a class="button header-button header-button-left" href='#'>Back</a>
+
+    <h1>Settings</h1>
+</div>
+
+<div class="scroll">
+    <form id="settings" name="settings">
+	
+	    <label>Name</label>
+			<input name="name" type="text" value="" /> 
+			
+        <label>Email</label> 
+			<input name="email" type="text" value="" /> 
+		
+
+		
+		
+		<label>My Logo</label> <select name="mylogo">
+            <option value="0">
+                - Select -
+            </option>
+
+            <option value="1">
+                1 Colour
+            </option>
+
+            <option value="2">
+                2 Colours
+            </option>
+
+            <option value="3">
+                3 Colours
+            </option>
+
+            <option value="4">
+                4 Colours
+            </option>
+        </select> <label>Additional Logo</label> <select name="additionallogo">
+            <option value="0">
+                - Select -
+            </option>
+
+            <option value="1">
+                1 Colour
+            </option>
+
+            <option value="2">
+                2 Colours
+            </option>
+
+            <option value="3">
+                3 Colours
+            </option>
+
+            <option value="4">
+                4 Colours
+            </option>
+        </select><br /><br /> <input class="submit" type="submit" value="Log in" />
+    </form>
+
+</script> 
+
+
+<div id="loader"> Loading ... </div>
+
+
+<script src="lib/jquery-1.8.2.min.js"></script> 
+<script src="lib/handlebars.js"></script> 
+<script src="lib/fastclick.js"></script> 
+
+<script src="js/storage/json-store.js"></script> 
+<script src="js/HomeView.js"></script> 
+<script src="js/SearchView.js"></script> 
+<script src="js/BrowseView.js"></script> 
+<script src="js/ProductView.js"></script> 
+<script src="js/FindView.js"></script> 
+<script src="js/SettingsView.js"></script> 
+<script src="js/App.js"></script>
+
+
+
+
+</body>
+</html>
